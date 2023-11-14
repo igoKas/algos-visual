@@ -30,18 +30,18 @@ export const FibonacciPage: React.FC = () => {
     if (n > 0) {
       arr.push(1);
       setRes([...arr]);
-      await wait(1000);
+      await wait(500);
     }
     if (n > 1) {
       arr.push(1);
       setRes([...arr]);
-      await wait(1000);
+      await wait(500);
     }
     if (n > 2) {
       for (let i = 2; i <= n; i++) {
         arr.push(arr[i - 2] + arr[i - 1]);
         setRes([...arr]);
-        await wait(1000);
+        await wait(500);
       }
     }
     setLoader(false);
@@ -55,7 +55,7 @@ export const FibonacciPage: React.FC = () => {
         <Button type="submit" text="Рассчитать" isLoader={loader}></Button>
       </form>
       <ul className={styles.res_container}>
-        {res.map((char, index) => <li key={index}><Circle index={index} letter={char + ''} /></li>)}
+        {res.map((char, index) => <li key={index}><Circle index={index} letter={String(char)} /></li>)}
       </ul>
     </SolutionLayout>
   );
