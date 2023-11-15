@@ -6,6 +6,7 @@ import styles from "./fibonacci-page.module.css";
 import { Circle } from "../ui/circle/circle";
 import { useForm } from "../../hooks/use-from";
 import { wait } from "../../utils/utils";
+import { fib } from "./fib";
 
 export const FibonacciPage: React.FC = () => {
   const { values, onChange } = useForm({
@@ -16,43 +17,26 @@ export const FibonacciPage: React.FC = () => {
   const [res, setRes] = useState<number[]>([]);
   const [loader, setLoader] = useState(false);
 
-  const handleSubmit = (evt: FormEvent) => {
+  const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
+    setRes([]);
     setLoader(true);
-    fib(Number(values.input));
-  }
-
-  const fib = async (n: number) => {
-    if (n < 1 || n > 19) {
-      setLoader(false);
-    }
-    const arr = [];
-    if (n > 0) {
-      arr.push(1);
-      setRes([...arr]);
+    const arr = fib(Number(values.input));
+    for(const element of arr) {
+      setRes(prevRes => [...prevRes, element]);
       await wait(500);
-    }
-    if (n > 1) {
-      arr.push(1);
-      setRes([...arr]);
-      await wait(500);
-    }
-    if (n > 2) {
-      for (let i = 2; i <= n; i++) {
-        arr.push(arr[i - 2] + arr[i - 1]);
-        setRes([...arr]);
-        await wait(500);
-      }
-    }
+    };
     setLoader(false);
   }
+
+  
   
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
       <form onSubmit={handleSubmit} className={styles.input_container}>
         <Input isLimitText={true} max={19} name="input" type="number" onChange={onChange}>
         </Input>
-        <Button type="submit" text="Рассчитать" isLoader={loader}></Button>
+        <Button type="submit" text="Рассчитать" isLoader={loader} disabled={(Number(values.input)) < 1 || (Number(values.input) > 19)}></Button>
       </form>
       <ul className={styles.res_container}>
         {res.map((char, index) => <li key={index}><Circle index={index} letter={String(char)} /></li>)}

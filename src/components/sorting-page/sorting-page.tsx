@@ -56,7 +56,7 @@ export const SortingPage: React.FC = () => {
         for (let j = i + 1; j < arr.length; j++) {
           arr[j].state = ElementStates.Changing;
           setRes([...arr]);
-          await wait(1000);
+          await wait(500);
           if (direction === Direction.Ascending ? arr[min].num > arr[j].num : arr[min].num < arr[j].num) {
             min = j;
           }
@@ -67,7 +67,7 @@ export const SortingPage: React.FC = () => {
         arr[min].state = ElementStates.Default;
         arr[i].state = ElementStates.Modified;
         setRes([...arr]);
-        await wait(1000);
+        await wait(500);
       }
     }
 
@@ -80,7 +80,7 @@ export const SortingPage: React.FC = () => {
           if (direction === Direction.Ascending ? arr[j].num > arr[j + 1].num : arr[j].num < arr[j + 1].num) {
             swap(arr, j, j + 1);
             setRes([...arr]);
-            await wait(1000);
+            await wait(500);
           }
           arr[j].state = ElementStates.Default;
           arr[j + 1].state = ElementStates.Default;

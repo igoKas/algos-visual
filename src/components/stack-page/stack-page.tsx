@@ -7,11 +7,11 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import styles from "./stack-page.module.css";
 import { ElementStates } from "../../types/element-states";
+import { Stack } from "./Stack";
 
 type StackElem = {
   str: string;
-  state: ElementStates
-  head: string
+  state: ElementStates;
 }
 
 export const StackPage: React.FC = () => {
@@ -20,43 +20,33 @@ export const StackPage: React.FC = () => {
   });
 
 
-  const [res, setRes] = useState<StackElem[]>([]);
+  const [stack] = useState(new Stack<StackElem>());
   const [loader, setLoader] = useState(false);
+  
 
   const handleAdd = async () => {
-    if (res.length > 9) return alert('Максимум 10 элементов в стеке')
     setLoader(true);
-    const arr = [...res];
-    arr.push({
+    stack.push({
       str: values.input,
       state: ElementStates.Changing,
-      head: 'top',
     });
-    setValues({input: ''})
-    const { length } = arr;
-    if (length > 1) arr[length - 2].head = ''
-    setRes([...arr]);
+    setValues({input: ''});
     await wait(500);
-    arr[length - 1].state = ElementStates.Default;
-    setRes([...arr]);
+    stack.elements[stack.size - 1].state = ElementStates.Default;
     setLoader(false);
   }
 
   const handleRemove = async () => {
     setLoader(true);
-    const arr = [...res];
-    const { length } = arr;
-    arr[length - 1].state = ElementStates.Changing;
-    arr.pop();
+    stack.elements[stack.size - 1].state = ElementStates.Changing;
     await wait(500);
-    if (length > 1) arr[length - 2].head = 'top';
-    setRes([...arr]);
+    stack.pop();
     setLoader(false);
   }
 
   const handleReset = () => {
-    setRes([]);
-    setValues({input: ''})
+    stack.clear();
+    setValues({input: ''});
   }
 
 
@@ -67,12 +57,12 @@ export const StackPage: React.FC = () => {
           <Input isLimitText={true} maxLength={4} name="input" value={values.input} onChange={onChange}>
           </Input>
           <Button onClick={handleAdd} text="Добавить" isLoader={loader} disabled={!values.input.length}></Button>
-          <Button onClick={handleRemove} text="Удалить" isLoader={loader} disabled={!res.length}></Button>
+          <Button onClick={handleRemove} text="Удалить" isLoader={loader} disabled={!stack.size}></Button>
         </div>
-        <Button onClick={handleReset} text="Очистить" isLoader={loader} disabled={!res.length && !values.input.length}></Button>
+        <Button onClick={handleReset} text="Очистить" isLoader={loader} disabled={!stack.size && !values.input.length}></Button>
       </form>
       <ul className={styles.res_container}>
-        {res.map((elem, index) => <li key={index}><Circle index={index} letter={String(elem.str)} head={elem.head} state={elem.state} /></li>)}
+        {stack.elements.map((elem, index) => <li key={index}><Circle index={index} letter={String(elem.str)} head={index === stack.size - 1 ? 'top' : ''} state={elem.state} /></li>)}
       </ul>
     </SolutionLayout>
   );
