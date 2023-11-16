@@ -62,7 +62,15 @@ export const StackPage: React.FC = () => {
         <Button onClick={handleReset} text="Очистить" isLoader={loader} disabled={!stack.size && !values.input.length}></Button>
       </form>
       <ul className={styles.res_container}>
-        {stack.elements.map((elem, index) => <li key={index}><Circle index={index} letter={String(elem.str)} head={index === stack.size - 1 ? 'top' : ''} state={elem.state} /></li>)}
+        {stack.elements.map((elem, index) =>
+        <li key={index}>
+          <Circle
+          index={index}
+          letter={String(elem.str)}
+          head={index === stack.size - 1 ? 'top' : ''}
+          state={elem.state}
+          />
+        </li>)}
       </ul>
     </SolutionLayout>
   );
