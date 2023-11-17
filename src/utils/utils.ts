@@ -10,3 +10,9 @@ export const swap = (arr: Char[] | Num[], firstIndex: number, secondIndex: numbe
     arr[firstIndex] = arr[secondIndex];
     arr[secondIndex] = temp;
 };
+
+export const getRandomInt = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }

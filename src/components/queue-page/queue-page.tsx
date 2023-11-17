@@ -8,6 +8,7 @@ import { Input } from "../ui/input/input";
 import styles from "./queue-page.module.css";
 import { ElementStates } from "../../types/element-states";
 import { Queue } from "./Queue";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 type QueueElem = {
   str: string;
@@ -31,7 +32,7 @@ export const QueuePage: React.FC = () => {
       state: ElementStates.Changing,
     });
     setValues({input: ''});
-    await wait(300);
+    await wait(SHORT_DELAY_IN_MS);
     queue.elements[queue.getTail() - 1].state = ElementStates.Default;
     setLoader(false);
   }
@@ -39,7 +40,7 @@ export const QueuePage: React.FC = () => {
   const handleRemove = async () => {
     setLoader(true);
     queue.elements[queue.getHead()].state = ElementStates.Changing;
-    await wait(300);
+    await wait(SHORT_DELAY_IN_MS);
     queue.dequeue();
     setLoader(false);
   }
@@ -58,7 +59,7 @@ export const QueuePage: React.FC = () => {
           <Button onClick={handleAdd} text="Добавить" isLoader={loader} disabled={!values.input.length || queue.getTail() > 6}></Button>
           <Button onClick={handleRemove} text="Удалить" isLoader={loader} disabled={!queue.getLength()}></Button>
         </div>
-        <Button onClick={handleReset} text="Очистить" isLoader={loader} disabled={!values.input.length && !queue.getLength()}></Button>
+        <Button onClick={handleReset} text="Очистить" isLoader={loader} disabled={!values.input.length && !queue.getHead() && !queue.getLength()}></Button>
       </form>
       <ul className={styles.res_container}>
         {queue.elements.map((elem, index) => 

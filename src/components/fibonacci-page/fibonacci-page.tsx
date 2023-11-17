@@ -7,6 +7,7 @@ import { Circle } from "../ui/circle/circle";
 import { useForm } from "../../hooks/use-from";
 import { wait } from "../../utils/utils";
 import { fib } from "./fib";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const FibonacciPage: React.FC = () => {
   const { values, onChange } = useForm({
@@ -24,7 +25,7 @@ export const FibonacciPage: React.FC = () => {
     const arr = fib(Number(values.input));
     for(const element of arr) {
       setRes(prevRes => [...prevRes, element]);
-      await wait(500);
+      await wait(SHORT_DELAY_IN_MS);
     };
     setLoader(false);
   }

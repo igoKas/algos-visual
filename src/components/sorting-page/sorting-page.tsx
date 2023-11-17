@@ -7,7 +7,8 @@ import { useForm } from "../../hooks/use-from";
 import { Direction } from "../../types/direction";
 import { Column } from "../ui/column/column";
 import { ElementStates } from "../../types/element-states";
-import { swap, wait } from "../../utils/utils";
+import { getRandomInt, swap, wait } from "../../utils/utils";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export enum SortWays {
   Selection = "selection",
@@ -27,12 +28,6 @@ export const SortingPage: React.FC = () => {
 
   const [res, setRes] = useState<Num[]>([]);
   const [loader, setLoader] = useState(false);
-
-  const getRandomInt = (min: number, max: number) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-  }
 
   const generateArr = () => {
     const arr: Num[] = [];
@@ -56,7 +51,7 @@ export const SortingPage: React.FC = () => {
         for (let j = i + 1; j < arr.length; j++) {
           arr[j].state = ElementStates.Changing;
           setRes([...arr]);
-          await wait(500);
+          await wait(SHORT_DELAY_IN_MS);
           if (direction === Direction.Ascending ? arr[min].num > arr[j].num : arr[min].num < arr[j].num) {
             min = j;
           }

@@ -7,6 +7,7 @@ import { useForm } from "../../hooks/use-from";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { swap, wait } from "../../utils/utils";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export type Char = {
   char: string;
@@ -44,14 +45,14 @@ export const StringComponent: React.FC = () => {
       convertedInput[left].state = ElementStates.Changing;
       convertedInput[right].state = ElementStates.Changing;
       setRes([...convertedInput]);
-      await wait(1000);
+      await wait(SHORT_DELAY_IN_MS);
       swap(convertedInput, left, right);
       left++;
       right--;
       convertedInput[left - 1].state = ElementStates.Modified;
       convertedInput[right + 1].state = ElementStates.Modified;
       setRes([...convertedInput]);
-      await wait(1000);
+      await wait(SHORT_DELAY_IN_MS);
     }
     if (arrLength % 2) {
       convertedInput[Math.floor(arrLength / 2)].state = ElementStates.Modified;

@@ -8,6 +8,7 @@ import { Input } from "../ui/input/input";
 import styles from "./stack-page.module.css";
 import { ElementStates } from "../../types/element-states";
 import { Stack } from "./Stack";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 type StackElem = {
   str: string;
@@ -31,7 +32,7 @@ export const StackPage: React.FC = () => {
       state: ElementStates.Changing,
     });
     setValues({input: ''});
-    await wait(500);
+    await wait(SHORT_DELAY_IN_MS);
     stack.elements[stack.size - 1].state = ElementStates.Default;
     setLoader(false);
   }
@@ -39,7 +40,7 @@ export const StackPage: React.FC = () => {
   const handleRemove = async () => {
     setLoader(true);
     stack.elements[stack.size - 1].state = ElementStates.Changing;
-    await wait(500);
+    await wait(SHORT_DELAY_IN_MS);
     stack.pop();
     setLoader(false);
   }
