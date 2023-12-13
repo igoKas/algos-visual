@@ -3,7 +3,7 @@ import { ElementStates } from "../../src/types/element-states";
 
 describe('list page works correctly', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:3000/list');
+        cy.visit('/list');
     });
 
     it('should disable add buttons and delete by index button if input is empty', function () {

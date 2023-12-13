@@ -3,7 +3,7 @@ import { ElementStates } from "../../src/types/element-states";
 
 describe('stack page works correctly', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:3000/stack');
+        cy.visit('/stack');
     });
 
     it('should disable button if input is empty', function () {

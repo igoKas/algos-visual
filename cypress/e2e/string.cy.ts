@@ -3,7 +3,7 @@ import { ElementStates } from "../../src/types/element-states";
 
 describe('string page works correctly', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:3000/recursion');
+        cy.visit('/recursion');
     });
 
     it('should disable button if input is empty', function () {
