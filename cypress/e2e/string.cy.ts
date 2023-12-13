@@ -1,3 +1,4 @@
+import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
 import { ElementStates } from "../../src/types/element-states";
 
 describe('string page works correctly', function () {
@@ -20,21 +21,21 @@ describe('string page works correctly', function () {
         cy.get('@circles').eq(1).should('contain', 'b').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(2).should('contain', 'c').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(3).should('contain', 'd').invoke('attr', 'class').and('contain', ElementStates.Changing);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', 'd').invoke('attr', 'class').and('contain', ElementStates.Modified);
         cy.get('@circles').eq(1).should('contain', 'b').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(2).should('contain', 'c').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(3).should('contain', 'a').invoke('attr', 'class').and('contain', ElementStates.Modified);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', 'd').invoke('attr', 'class').and('contain', ElementStates.Modified);
         cy.get('@circles').eq(1).should('contain', 'b').invoke('attr', 'class').and('contain', ElementStates.Changing);
         cy.get('@circles').eq(2).should('contain', 'c').invoke('attr', 'class').and('contain', ElementStates.Changing);
         cy.get('@circles').eq(3).should('contain', 'a').invoke('attr', 'class').and('contain', ElementStates.Modified);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', 'd').invoke('attr', 'class').and('contain', ElementStates.Modified);
         cy.get('@circles').eq(1).should('contain', 'c').invoke('attr', 'class').and('contain', ElementStates.Modified);
         cy.get('@circles').eq(2).should('contain', 'b').invoke('attr', 'class').and('contain', ElementStates.Modified);
         cy.get('@circles').eq(3).should('contain', 'a').invoke('attr', 'class').and('contain', ElementStates.Modified);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
     });
 }); 

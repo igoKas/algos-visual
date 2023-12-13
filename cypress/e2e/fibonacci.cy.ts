@@ -1,3 +1,4 @@
+import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
 import { ElementStates } from "../../src/types/element-states";
 
 describe('fibonacci page works correctly', function () {
@@ -17,24 +18,24 @@ describe('fibonacci page works correctly', function () {
 
         cy.get('[data-cy="circle_content"]').as('circles');
         cy.get('@circles').eq(0).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(1).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(1).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(2).should('contain', '2').invoke('attr', 'class').and('contain', ElementStates.Default);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(1).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(2).should('contain', '2').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(3).should('contain', '3').invoke('attr', 'class').and('contain', ElementStates.Default);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(1).should('contain', '1').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(2).should('contain', '2').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(3).should('contain', '3').invoke('attr', 'class').and('contain', ElementStates.Default);
         cy.get('@circles').eq(4).should('contain', '5').invoke('attr', 'class').and('contain', ElementStates.Default);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
     });
 }); 

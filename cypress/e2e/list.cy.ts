@@ -1,3 +1,4 @@
+import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
 import { ElementStates } from "../../src/types/element-states";
 
 describe('list page works correctly', function () {
@@ -36,12 +37,12 @@ describe('list page works correctly', function () {
         cy.get('[data-cy="circle"]').first().as('circle');
         cy.get('@circle').find('[class*="circle_small__"]').invoke('attr', 'class').and('contain', ElementStates.Changing);
         cy.get('@circle').find('[class*="circle_small__"]').contains('1');
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circle').next('svg');
         cy.get('@circle').should('contain', 'head')
             .and('contain', '1')
             .children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Modified);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circle')
             .children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Default);
     });
@@ -54,11 +55,11 @@ describe('list page works correctly', function () {
         cy.get('[data-cy="circle"]').last().as('circle');
         cy.get('@circle').find('[class*="circle_small__"]').invoke('attr', 'class').and('contain', ElementStates.Changing);
         cy.get('@circle').find('[class*="circle_small__"]').contains('1');
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circle').should('contain', 'tail')
             .and('contain', '1')
             .children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Modified);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circle')
             .children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Default);
     });
@@ -73,14 +74,14 @@ describe('list page works correctly', function () {
             if (index < 3) {
                 cy.wrap($element).find('[class*="circle_small__"]').invoke('attr', 'class').and('contain', ElementStates.Changing);
                 cy.wrap($element).find('[class*="circle_small__"]').contains('1');
-                cy.tick(500);
+                cy.tick(SHORT_DELAY_IN_MS);
             }
         });
         cy.get('[data-cy="circle"]').eq(2).as('circle');
         cy.get('@circle').should('contain', '1')
             .and('contain', '2')
             .children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Modified);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circle')
             .children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Default);
     });
@@ -96,7 +97,7 @@ describe('list page works correctly', function () {
                 .and('contain', ElementStates.Changing)
                 .then(() => cy.wrap($element).find('[data-cy="small_circle"]').find('p').should('have.text', text));
         })
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('[data-cy="circle"]').should('have.length', 3);
     });
 
@@ -111,7 +112,7 @@ describe('list page works correctly', function () {
                 .and('contain', ElementStates.Changing)
                 .then(() => cy.wrap($element).find('[data-cy="small_circle"]').find('p').should('have.text', text));
         })
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('[data-cy="circle"]').should('have.length', 3);
     });
 
@@ -124,19 +125,19 @@ describe('list page works correctly', function () {
         cy.get('[data-cy="circle"]').should('have.length', 4).each(($element, index) => {
             if (index < Number(indexInput)) {
                 cy.wrap($element).children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Changing);
-                cy.tick(500);
+                cy.tick(SHORT_DELAY_IN_MS);
             }
             if (index === Number(indexInput)) {
                 const text = $element.children('[class*="circle_circle__"]').text();
                 cy.wrap($element).children('[class*="circle_circle__"]').invoke('attr', 'class').and('contain', ElementStates.Changing);
-                cy.tick(500);
+                cy.tick(SHORT_DELAY_IN_MS);
                 cy.wrap($element).find('[data-cy="small_circle"]')
                     .children('[class*="circle_circle__"]').invoke('attr', 'class')
                     .and('contain', ElementStates.Changing)
                     .then(() => cy.wrap($element).find('[data-cy="small_circle"]').find('p').should('have.text', text));
             }
         });
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('[data-cy="circle"]').should('have.length', 3);
     });
 }); 

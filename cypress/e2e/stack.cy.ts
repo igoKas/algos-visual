@@ -1,3 +1,4 @@
+import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
 import { ElementStates } from "../../src/types/element-states";
 
 describe('stack page works correctly', function () {
@@ -17,7 +18,7 @@ describe('stack page works correctly', function () {
 
         cy.get('[data-cy="circle_content"]').as('circles');
         cy.get('@circles').eq(0).should('contain', '4').invoke('attr', 'class').and('contain', ElementStates.Changing);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').eq(0).should('contain', '4').invoke('attr', 'class').and('contain', ElementStates.Default);
     });
 
@@ -25,15 +26,15 @@ describe('stack page works correctly', function () {
         cy.clock();
         cy.get('input').type('1');
         cy.get('[data-cy="Добавить"]').click();
-        cy.tick(1000);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('input').type('2');
         cy.get('[data-cy="Добавить"]').click();
-        cy.tick(1000);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('[data-cy="Удалить"]').click();
 
         cy.get('[data-cy="circle_content"]').as('circles');
         cy.get('@circles').eq(1).should('contain', '2').invoke('attr', 'class').and('contain', ElementStates.Changing);
-        cy.tick(500);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('@circles').should('have.length', '1');
     });
 
@@ -41,10 +42,10 @@ describe('stack page works correctly', function () {
         cy.clock();
         cy.get('input').type('1');
         cy.get('[data-cy="Добавить"]').click();
-        cy.tick(1000);
+        cy.tick(SHORT_DELAY_IN_MS);
         cy.get('input').type('2');
         cy.get('[data-cy="Добавить"]').click();
-        cy.tick(1000);
+        cy.tick(SHORT_DELAY_IN_MS);
 
         cy.get('[data-cy="circle_content"]').as('circles');
         cy.get('@circles').should('have.length', '2');
