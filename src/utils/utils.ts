@@ -5,7 +5,7 @@ export function wait(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-export const swap = (arr: Char[] | Num[], firstIndex: number, secondIndex: number): void => {
+export const swap = (arr: Char[] | Num[] | string[] | number[], firstIndex: number, secondIndex: number): void => {
     const temp = arr[firstIndex];
     arr[firstIndex] = arr[secondIndex];
     arr[secondIndex] = temp;

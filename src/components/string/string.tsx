@@ -67,7 +67,7 @@ export const StringComponent: React.FC = () => {
       <form onSubmit={handleSubmit} className={styles.input_container}>
         <Input isLimitText={true} maxLength={11} name="input" onChange={onChange}>
         </Input>
-        <Button type="submit" text="Развернуть" isLoader={loader}></Button>
+        <Button type="submit" text="Развернуть" isLoader={loader} disabled={!values.input.length}></Button>
       </form>
       <ul className={styles.res_container}>
         {res.map((char, index) => <li key={index}><Circle letter={char.char} state={char.state} /></li>)}
